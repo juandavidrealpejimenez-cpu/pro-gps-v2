@@ -1,0 +1,25 @@
+{
+  "name": "pro-gps-v2-desktop",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis"
+  },
+  "build": {
+    "appId": "com.progps.v2",
+    "productName": "Pro GPS V2",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "icon.ico"
+    }
+  },
+  "dependencies": {
+    "electron": "^29.0.0"
+  },
+  "devDependencies": {
+    "electron-builder": "^24.0.0"
+  }
+}
