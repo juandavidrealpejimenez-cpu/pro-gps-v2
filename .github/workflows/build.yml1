@@ -1,0 +1,34 @@
+name: Build Pro GPS V2
+
+on:
+  workflow_dispatch: # Permite ejecutarlo manualmente desde Actions
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: 📥 Checkout código
+        uses: actions/checkout@v3
+
+      - name: 🔧 Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📦 Instalar dependencias
+        run: npm install
+
+      - name: ⚡ Compilar app de escritorio
+        run: npm run build
+
+      - name: 📦 Empaquetar instalador (Windows)
+        run: npx electron-builder --win --x64
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📤 Subir instalador como artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ProGPSV2-Installer
+          path: dist/*.exe
